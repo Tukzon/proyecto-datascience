@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabla en tiempo real</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function actualizarTabla() {
+            $.ajax({
+                url: '/datos', // Endpoint que devuelve los datos actualizados
+                method: 'GET',
+                success: function(data) {
+                    // Actualizar la tabla con los nuevos datos
+                    $('#tabla-datos').html(data);
+                }
+            });
+        }
+
+        // Actualizar la tabla cada 5 segundos (por ejemplo)
+        setInterval(actualizarTabla, 5000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <table id="tabla-datos" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Dato</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se mostrarán los datos -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

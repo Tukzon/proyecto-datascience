@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tienda de Electrónica - Pago de compra</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+            position: fixed;
+        }
+        
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+        
+        .tienda-nombre {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            height: calc(100% - 160px);
+            border-right: 1px solid #ddd;
+            margin-top: 200px;
+            margin-right: 10px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar li {
+            padding: 8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: fit-content;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        
+        .producto {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .img-fluid {
+            height: 200px;
+            width: auto
+        }
+        
+        .form-group label {
+            font-weight: bold;
+        }
+        
+        .form-group input[type="text"] {
+            width: 100%;
+        }
+        
+        .form-group.form-check label {
+            font-weight: normal;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        
+        .container-fluid {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100%;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-style {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .modal-content h2 {
+            text-align: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <a href="/">
+                <img src="https://www.pngall.com/wp-content/uploads/13/Network-PNG-File.png" alt="DataScience Shop" class="tienda-nombre logo">
+            </a>
+            <h1 class="tienda-nombre">DataScience Shop</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Celulares</a></li>
+                    <li><a href="#">Consolas</a></li>
+                    <li><a href="#">Computación</a></li>
+                    <li><a href="#">Electrodomésticos</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="content">
+                    <div class="modal-style">
+                        <div class="modal-content">
+                            <h2>Pago de compra</h2>
+                            
+                            <div class="row">
+                                <div class="col-md-4 producto">
+                                    <img src="{{producto1['image']}}" alt="Producto 1" class="img-fluid">
+                                    <h4>{{producto1['name']}}</h4>
+                                    <p>{{producto1['description']}}</p>
+                                    <p>{{producto1['price']}}</p>
+                                </div>
+                                <div class="col-md-4 producto">
+                                    <img src="{{producto2['image']}}" alt="Producto 2" class="img-fluid">
+                                    <h4>{{producto2['name']}}</h4>
+                                    <p>{{producto2['description']}}</p>
+                                    <p>{{producto2['price']}}</p>
+                                </div>
+                                <div class="col-md-4 producto">
+                                    <img src="{{producto3['image']}}" alt="Producto 3" class="img-fluid">
+                                    <h4>{{producto3['name']}}</h4>
+                                    <p>{{producto3['description']}}</p>
+                                    <p>{{producto3['price']}}</p>
+                                </div>
+                            </div>
+                            
+                            <form action="/procesar_pago" method="POST">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="tarjeta">Número de tarjeta:</label>
+                                    <input type="text" class="form-control" id="tarjeta" name="tarjeta" required>
+                                </div>
+                                
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="fraudulenta" name="fraudulenta">
+                                    <label class="form-check-label" for="fraudulenta">Transacción fraudulenta</label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Pagar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="container">
+            &copy; 2023 Predicción de ubicación para transacciones fraudulentas Team. Todos los derechos reservados.
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
