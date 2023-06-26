@@ -10,4 +10,11 @@ def index():
     return render_template('index.html', producto1 = producto1, producto2 = producto2, producto3 = producto3)
 
 def procesar_pago():
+    data = request.get_json()
+    location = data['location']
+    nombre = data['nombre']
+    tarjeta = data['tarjeta']
+    isFraud = data['fraudulenta']
+    if isFraud:
+        return False
     return True

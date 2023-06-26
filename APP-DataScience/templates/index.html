@@ -197,6 +197,14 @@
                             
                             <form action="/procesar_pago" method="POST">
                                 <div class="form-group">
+                                    <label for="location">Ubicación:</label>
+                                    <select class="form-select form-select-sm" aria-label="location .form-select-sm">
+                                        <option value="1">POS1</option>
+                                        <option value="2">POS2</option>
+                                        <option value="3">POS3</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="nombre">Nombre:</label>
                                     <input type="text" class="form-control" id="nombre" name="nombre" required>
                                 </div>
@@ -207,7 +215,7 @@
                                 </div>
                                 
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="fraudulenta" name="fraudulenta">
+                                    <input type="checkbox" class="form-check-input" id="fraudulenta" name="fraudulenta" value="1">
                                     <label class="form-check-label" for="fraudulenta">Transacción fraudulenta</label>
                                 </div>
                                 
