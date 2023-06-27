@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                             
-                            <form action="/procesar_pago" method="POST">
+                            <form action="/procesar-pago" method="POST">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -222,6 +222,11 @@
                                 <div class="form-group">
                                     <label for="tarjeta">Número de tarjeta:</label>
                                     <input type="text" class="form-control" id="tarjeta" name="tarjeta" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="monto">Monto:</label>
+                                    <input type="text" class="form-control" id="monto" name="monto" value="{{monto}}" readonly>
                                 </div>
                                 
                                 <div class="form-group form-check">

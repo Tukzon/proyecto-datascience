@@ -2,6 +2,7 @@ import random
 
 def new_product():
     price = random.randint(5000, 1000000)
+    precio = price
     #se muestra el punto para separar los miles
     price = "{:,}".format(price)
     price = price.replace(',', '.')
@@ -17,6 +18,7 @@ def new_product():
     elif name == 'Motorola':
         image = 'https://i0.wp.com/diariolaregion.net/wp-content/uploads/2016/05/celular.png?w=450&ssl=1'
     return {
+        'precio': precio,
         'price': price,
         'name': name,
         'description': description,

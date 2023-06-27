@@ -1,5 +1,32 @@
-{% for dato in datos %}
-    <tr class="table-dark">
-        <td>{{ dato }}</td>
-    </tr>
-{% endfor %}
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Posición X</th>
+            <th>Posición Y</th>
+            <th>Mes</th>
+            <th>Día</th>
+            <th>Hora</th>
+            <th>Minuto</th>
+            <th>Monto</th>
+            <th>Nombre</th>
+            <th>Es Fraudulenta</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dato in datos %}
+        <tr>
+            <td>{{ dato['id'] }}</td>
+            <td>{{ dato['x_pos'] }}</td>
+            <td>{{ dato['y_pos'] }}</td>
+            <td>{{ dato['month'] }}</td>
+            <td>{{ dato['day'] }}</td>
+            <td>{{ dato['hour'] }}</td>
+            <td>{{ dato['minute'] }}</td>
+            <td>{{ dato['monto'] }}</td>
+            <td>{{ dato['nombre'] }}</td>
+            <td>{{ dato['fraudulenta'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
