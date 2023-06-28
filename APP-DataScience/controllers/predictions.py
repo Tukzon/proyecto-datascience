@@ -7,10 +7,16 @@ def predict():
     return render_template('predict.html')
 
 def datos():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("""SELECT * FROM transacciones ORDER BY id DESC""")
-    rows = cursor.fetchall()
-    datos = [dict(row) for row in rows]
-    conn.close()
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+
+        cursor.execute("""SELECT * FROM transacciones ORDER BY id DESC""")
+        rows = cursor.fetchall()
+        datos = []
+        for row in rows:
+            row_dict = {}
+            for i, col_name in enumerate(cursor.description):
+                row_dict[col_name[0]] = row[i]
+            datos.append(row_dict)
+
     return render_template('datos.html', datos = datos)

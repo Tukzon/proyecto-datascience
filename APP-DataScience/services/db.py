@@ -1,11 +1,12 @@
+from flask import g
 import sqlite3
 
 DATABASE = 'proyecto.db'
 
 def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
+    if 'db_connection' not in g:
+        g.db_connection = sqlite3.connect(DATABASE)
+    return g.db_connection
 
 def create_tables():
     conn = get_db_connection()
