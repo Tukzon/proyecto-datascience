@@ -29,11 +29,11 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS predicciones (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             x_pos TEXT,
-            y_post TEXT,
+            y_pos TEXT,
             month TEXT,
             day TEXT,
             hour TEXT,
-            minute TEXT
+            minute TEXT,
             fk_id_transaccion INTEGER
         )
     ''')

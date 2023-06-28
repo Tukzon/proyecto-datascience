@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html>    
 <head>
     <title>Tabla en tiempo real</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function actualizarTabla() {
+        function actualizarTablaDatos() {
             $.ajax({
                 url: '/datos', // Endpoint que devuelve los datos actualizados
                 method: 'GET',
@@ -16,21 +16,66 @@
             });
         }
 
+        function actualizarTablaPredic() {
+            $.ajax({
+                url: '/datos-predict', // Endpoint que devuelve los datos actualizados
+                method: 'GET',
+                success: function(data) {
+                    // Actualizar la tabla con los nuevos datos
+                    $('#tabla-predict').html(data);
+                }
+            });
+        }
+
+
         // Actualizar la tabla cada 5 segundos (por ejemplo)
-        setInterval(actualizarTabla, 5000);
+        setInterval(actualizarTablaDatos, 5000);
+        setInterval(actualizarTablaPredic, 5000);
     </script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        hr {
+            margin: 40px 0;
+        }
+
+        .table {
+            border: 1px solid #ccc;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <h1>Predicciones realizadas</h1>
+        <table id="tabla-predict" class="table">
+            <!-- Contenido de la tabla de predicciones -->
+        </table>
+        <hr>
+        <h1>Transacciones efectuadas</h1>
         <table id="tabla-datos" class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Dato</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se mostrarán los datos -->
-            </tbody>
+            <!-- Contenido de la tabla de transacciones -->
         </table>
     </div>
 </body>

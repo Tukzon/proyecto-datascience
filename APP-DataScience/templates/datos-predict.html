@@ -7,9 +7,7 @@
             <th>Día</th>
             <th>Hora</th>
             <th>Minuto</th>
-            <th>Monto</th>
-            <th>Nombre</th>
-            <th>Es Fraudulenta</th>
+            <th>Generada por trx num</th>
         </tr>
     </thead>
     <tbody>
@@ -22,9 +20,7 @@
             <td>{{ dato['day'] }}</td>
             <td>{{ dato['hour'] }}</td>
             <td>{{ dato['minute'] }}</td>
-            <td>{{ dato['monto'] }}</td>
-            <td>{{ dato['nombre'] }}</td>
-            <td>{{ dato['fraudulenta'] }}</td>
+            <td>{{ dato['fk_id_transaccion'] }}</td>
         </tr>
         {% endfor %}
 </tbody>

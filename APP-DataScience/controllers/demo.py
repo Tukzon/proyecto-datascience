@@ -29,6 +29,9 @@ def procesar_pago():
         isFraud = data.get('fraudulenta', [''])[0]
         monto = data.get('monto', [''])[0]
 
+        x_pos = 16.640562815169353
+        y_pos = 8.25627010910241
+
         datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
         year = datetime_obj.year
         month = datetime_obj.month
@@ -42,15 +45,17 @@ def procesar_pago():
             isFraud = 1
 
         try:
-            cursor.execute("INSERT INTO transacciones (x_pos, y_pos, month, day, hour, minute, monto, nombre, fraudulenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (location, location, month, day, hour, minute, monto, nombre, isFraud))
+            cursor.execute("INSERT INTO transacciones (x_pos, y_pos, month, day, hour, minute, monto, nombre, fraudulenta) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (x_pos, y_pos, month, day, hour, minute, monto, nombre, isFraud))
         except Exception as e:
             return jsonify({'Error': str(e)}), 200
 
         if isFraud == 1:
-            with open('modelo.pkl', 'rb') as file:
+            model_path = os.path.join(os.path.dirname(__file__), '..', 'modelo.pkl')
+            with open(model_path, 'rb') as file:
                 modelo = pickle.load(file)
-            prediccion = modelo.predict([[location, location, month, day, hour, minute]])
+            prediccion = modelo.predict([[x_pos, y_pos, month, day, hour, minute]])
             resultado = prediccion[0]
+            print("resultado: ",resultado)
             x_pos_pred = resultado[0]
             y_pos_pred = resultado[1]
             month_pred = resultado[2]
@@ -59,7 +64,7 @@ def procesar_pago():
             minute_pred = resultado[5]
 
             try:
-                cursor.execute("INSERT INTO predicciones (x_pos, y_pos, month, day, hour, minute, fk_id_transaccion) VALUES (?, ?, ?, ?, ?, ?, ?)", (x_pos_pred, y_pos_pred, month_pred, day_pred, hour_pred, minute_pred, cursor.lastrowid))
+                cursor.execute("INSERT INTO predicciones (x_pos, y_pos, month, day, hour, minute, fk_id_transaccion) VALUES (?, ?, ?, ?, ?, ?, ?)", (x_pos_pred, y_pos_pred, round(month_pred), round(day_pred), round(hour_pred), round(minute_pred), cursor.lastrowid))
             except Exception as e:
                 return jsonify({'ERROR': str(e)}), 200
 
