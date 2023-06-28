@@ -198,13 +198,9 @@
                             <form action="/procesar-pago" method="POST">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div class="form-group d-flex align-items-center">
                                             <label for="location">Ubicación:</label>
-                                            <select class="form-select form-select-sm" aria-label="location .form-select-sm">
-                                                <option value="1">POS1</option>
-                                                <option value="2">POS2</option>
-                                                <option value="3">POS3</option>
-                                            </select>
+                                            <input type="number" class="form-control" id="location" name="location" min="1" max="500" required>
                                         </div>
                                     </div>
                                     <div class="col">

@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 from services.prod_generator import new_product
 from services.datetime_generator import random_datetime
 from services.db import get_db_connection
+from services.par_pos import obtenerpos
 from urllib.parse import parse_qs
 import pickle
 import os
@@ -29,8 +30,10 @@ def procesar_pago():
         isFraud = data.get('fraudulenta', [''])[0]
         monto = data.get('monto', [''])[0]
 
-        x_pos = 16.640562815169353
-        y_pos = 8.25627010910241
+        posiciones = obtenerpos(int(location))
+
+        x_pos = posiciones[0]
+        y_pos = posiciones[1]
 
         datetime_obj = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
         year = datetime_obj.year
@@ -69,7 +72,7 @@ def procesar_pago():
                 return jsonify({'ERROR': str(e)}), 200
 
             conn.commit()
-            return jsonify({'success': True}), 200
+            return redirect(url_for('demo_bp.index'))
 
         conn.commit()
-        return jsonify({'success': False}), 200
+        return redirect(url_for('demo_bp.index'))
